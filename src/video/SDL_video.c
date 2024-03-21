@@ -403,6 +403,10 @@ static int SDLCALL cmpmodes(const void *A, const void *B)
         return SDL_PIXELLAYOUT(b->format) - SDL_PIXELLAYOUT(a->format);
     } else if (a->refresh_rate != b->refresh_rate) {
         return b->refresh_rate - a->refresh_rate;
+    } else if (a->driverdata != b->driverdata) {
+        // Not sure if we should compare the address directly
+        // but it's definitely better than nothing
+        return (int)((uintptr_t)b->driverdata - (uintptr_t)a->driverdata);       
     }
     return 0;
 }
